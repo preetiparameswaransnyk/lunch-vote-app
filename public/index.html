@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lunch Ballot</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <header class="top">
+      <div class="brand">
+        <p class="eyebrow">Team lunch</p>
+        <h1>Lunch Ballot</h1>
+        <p class="lede">Suggest a place, vote once, and close the poll when the table is set.</p>
+      </div>
+      <form id="voter-form" class="voter" autocomplete="on">
+        <label for="voter-name">Voting as</label>
+        <input id="voter-name" name="voterName" maxlength="40" autocomplete="nickname" placeholder="Your name" required>
+      </form>
+    </header>
+
+    <p id="banner" class="banner" role="status" hidden></p>
+
+    <main class="layout">
+      <section class="panel" aria-labelledby="polls-heading">
+        <div class="panel-head">
+          <h2 id="polls-heading">Polls</h2>
+        </div>
+        <form id="create-form" class="stack">
+          <div class="field">
+            <label for="poll-title">New poll</label>
+            <input id="poll-title" name="title" maxlength="120" required placeholder="Friday near the office">
+          </div>
+          <div class="field">
+            <label for="poll-date">Lunch date</label>
+            <input id="poll-date" name="lunchDate" type="date" required>
+          </div>
+          <button type="submit" class="primary">Start poll</button>
+        </form>
+        <ul id="poll-list" class="poll-list"></ul>
+      </section>
+
+      <section class="panel detail" id="detail" aria-live="polite"></section>
+    </main>
+
+    <footer class="foot">
+      <p>Names on this board are display names for the vote. They are not accounts.</p>
+    </footer>
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>
