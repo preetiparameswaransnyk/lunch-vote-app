@@ -56,6 +56,19 @@ export function pollsRouter(db) {
     res.status(201).location(`/api/polls/${poll.id}`).json(poll);
   });
 
+  // DEMO: intentionally vulnerable endpoints for Snyk PR check demo
+  router.get("/polls/search", (req, res) => {
+    const q = req.query.q;
+    const rows = db
+      .prepare(`SELECT id, title, lunch_date FROM polls WHERE title LIKE '%${q}%'`)
+      .all();
+    res.json({ polls: rows });
+  });
+
+  router.get("/search-page", (req, res) => {
+    res.send(`<h1>Results for ${req.query.q}</h1>`);
+  });
+
   router.get("/polls/:id", (req, res) => {
     const id = requireId(req.params.id, "Poll id");
     res.json(requirePoll(getPollDetail(db, id)));
