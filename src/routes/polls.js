@@ -66,7 +66,12 @@ export function pollsRouter(db) {
   });
 
   router.get("/search-page", (req, res) => {
-    res.send(`<h1>Results for ${req.query.q}</h1>`);
+    const raw = String(req.query.q ?? "");
+    if (!/^[A-Za-z0-9 _-]*$/.test(raw)) {
+      res.status(400).type("text/plain").send("Invalid query");
+      return;
+    }
+    res.type("text/html").send(`<h1>Results for ${raw}</h1>`);
   });
 
   router.get("/polls/:id", (req, res) => {
